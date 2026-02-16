@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 4 - DB Intro</title>
+</head>
+<body>
+    <h1>Lab 4: Database Interface</h1>
+
+    <div style="margin-bottom: 20px;">
+        <h3>Part A: Insert Data</h3>
+        <button id="insertBtn">Insert Patients</button>
+        <p id="insertFeedback" style="color: blue;"></p>
+    </div>
+
+    <hr>
+
+    <div>
+        <h3>Part B: Execute SQL Query</h3>
+        <p>Enter a SELECT query (e.g., SELECT * FROM patient)</p>
+        <textarea id="sqlQuery" rows="4" cols="50">SELECT * FROM patient</textarea><br>
+        <button id="submitQueryBtn">Submit Query</button>
+        <div id="queryFeedback" style="margin-top: 10px; border: 1px solid #ccc; padding: 10px;"></div>
+    </div>
+
+    <script>
+        const CLIENT_STRINGS = {
+            url_insert: "http://localhost:8888/api/insert",
+            url_query: "http://localhost:8888/api/query?sql=",
+            err_network: "Network Error: "
+        };
+
+        // A. Handle Insert Button
+        document.getElementById('insertBtn').addEventListener('click', () => {
+            fetch(CLIENT_STRINGS.url_insert, { method: 'POST' })
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('insertFeedback').innerText = data;
+                })
+                .catch(err => {
+                    document.getElementById('insertFeedback').innerText = CLIENT_STRINGS.err_network + err;
+                });
+        });
+    </script>
+</body>
+</html>

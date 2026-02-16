@@ -1,0 +1,22 @@
+{
+  "name": "lab4",
+  "version": "1.0.0",
+  "description": "lab4",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Li-Yang-CS/COMP4537_Lab4_Yang_Brownie.git"
+  },
+  "author": "Yang, Brownie",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Li-Yang-CS/COMP4537_Lab4_Yang_Brownie/issues"
+  },
+  "homepage": "https://github.com/Li-Yang-CS/COMP4537_Lab4_Yang_Brownie#readme",
+  "dependencies": {
+    "mysql2": "^3.17.1"
+  }
+}
