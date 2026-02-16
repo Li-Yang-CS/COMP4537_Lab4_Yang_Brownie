@@ -1,9 +1,22 @@
-export const DB_CONFIG = {
-    host: 'localhost',
-    user: 'lab4user',
-    password: 'password123',
-    database: 'lab4db'
+export const WRITER_DB_CONFIG = {
+    host: "lab4db-do-user-32507524-0.f.db.ondigitalocean.com",
+    user: "lab4writer",
+    password: "AVNS_1GPBjuEKeMzkbEbb2UD",
+    database: "defaultdb",
+    port: 25060,
+    ssl: { rejectUnauthorized: false }
 };
+
+
+export const READER_DB_CONFIG = {
+    host: "lab4db-do-user-32507524-0.f.db.ondigitalocean.com",
+    user: "lab4reader",
+    password: "AVNS_r0_uxeVsShxqzPwlo7y",
+    database: "defaultdb",
+    port: 25060,
+    ssl: { rejectUnauthorized: false }
+};
+
 
 export const STRINGS = {
     server_running: "Server is running on port 8888",

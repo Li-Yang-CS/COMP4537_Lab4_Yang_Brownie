@@ -1,10 +1,19 @@
 import http from 'http';
 import url from 'url';
 import mysql from 'mysql2';
-import {STRINGS, SQL, PATIENTS_DATA, DB_CONFIG} from './config.js';
+import {
+    STRINGS,
+    SQL,
+    PATIENTS_DATA,
+    WRITER_DB_CONFIG,
+    READER_DB_CONFIG
+} from './config.js';
+
 
 const PORT = process.env.PORT || 8888;
-const pool = mysql.createPool(DB_CONFIG);
+const writerPool = mysql.createPool(WRITER_DB_CONFIG);
+const readerPool = mysql.createPool(READER_DB_CONFIG);
+
 
 const server = http.createServer((req, res) => {
     const reqUrl = url.parse(req.url, true);
@@ -17,14 +26,14 @@ const server = http.createServer((req, res) => {
     }
 
     if (req.method === 'POST' && reqUrl.pathname === '/api/insert') {
-        pool.query(SQL.createTable, (err) => {
+        writerPool.query(SQL.createTable, (err) => {
             if (err) {
                 res.writeHead(500, { ...STRINGS.headers_cors, ...STRINGS.headers_content_type });
                 res.end(STRINGS.err_query + err.message);
                 return;
             }
 
-            pool.query(SQL.insert, [PATIENTS_DATA], (err, result) => {
+            writerPool.query(SQL.insert, [PATIENTS_DATA], (err, result) => {
                 res.writeHead(200, { ...STRINGS.headers_cors, ...STRINGS.headers_content_type });
                 if (err) {
                     res.end(STRINGS.err_query + err.message);
@@ -33,19 +42,21 @@ const server = http.createServer((req, res) => {
                 }
             });
         });
-    } 
+        return;
+    }
     
     else if (req.method === 'GET' && reqUrl.pathname === '/api/query') {
         const sqlQuery = reqUrl.query.sql;
-        
-        pool.query(sqlQuery, (err, results) => {
+
+        readerPool.query(sqlQuery, (err, results) => {
             res.writeHead(200, { ...STRINGS.headers_cors, ...STRINGS.headers_content_type });
             if (err) {
                 res.end(STRINGS.err_query + err.message);
             } else {
                 res.end(JSON.stringify(results));
-        }
+            }
         });
+        return;
     }
     
     else {
