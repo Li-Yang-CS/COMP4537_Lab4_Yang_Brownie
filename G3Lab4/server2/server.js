@@ -1,18 +1,9 @@
 import http from 'http';
 import url from 'url';
-import { STRINGS, SQL, PATIENTS_DATA} from './config.js';
+import {STRINGS, SQL, PATIENTS_DATA} from './config.js';
 
 const PORT = 8888;
 const pool = mysql.createPool(dbConfig);
-
-const sendJson = (res, statusCode, data) => {
-    res.writeHead(statusCode, {
-        ...STRINGS.headers_cors,
-        ...STRINGS.headers_content_type
-    });
-
-    res.end(JSON.stringify(data));
-};
 
 const server = http.createServer((req, res) => {
     const reqUrl = url.parse(req.url, true);
@@ -62,6 +53,6 @@ const server = http.createServer((req, res) => {
     }
 });
 
-server.listen(8888, () => {
+server.listen(PORT, () => {
     console.log(STRINGS.server_running);
 });

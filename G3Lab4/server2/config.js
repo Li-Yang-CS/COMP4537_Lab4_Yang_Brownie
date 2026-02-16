@@ -19,6 +19,15 @@ export const STRINGS = {
     }
 };
 
+export const SQL = {
+    createTable: `CREATE TABLE IF NOT EXISTS patient (
+        patientid INT(11) AUTO_INCREMENT PRIMARY KEY,
+        name VARCHAR(100),
+        dateOfBirth DATETIME
+    ) ENGINE=InnoDB`,
+    insert: `INSERT INTO patient (name, dateOfBirth) VALUES ?`
+};
+
 export const PATIENTS_DATA = [
     ['Sara Brown', '1901-01-01'],
     ['John Smith', '1941-01-01'],
