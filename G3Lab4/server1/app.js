@@ -1,7 +1,7 @@
         // Strings for client side
         const CLIENT_STRINGS = {
-            url_insert: "http://localhost:8888/api/insert",
-            url_query: "http://localhost:8888/api/query?sql=",
+            url_insert: "https://plankton-app-6zg8k.ondigitalocean.app/api/insert",
+            url_query: "https://plankton-app-6zg8k.ondigitalocean.app/api/query?sql=",
             err_network: "Network Error: "
         };
 
