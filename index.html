@@ -14,16 +14,6 @@
         <p id="insertFeedback" style="color: blue;"></p>
     </div>
 
-    <hr>
-
-    <div>
-        <h3>Part B: Execute SQL Query</h3>
-        <p>Enter a SELECT query (e.g., SELECT * FROM patient)</p>
-        <textarea id="sqlQuery" rows="4" cols="50">SELECT * FROM patient</textarea><br>
-        <button id="submitQueryBtn">Submit Query</button>
-        <div id="queryFeedback" style="margin-top: 10px; border: 1px solid #ccc; padding: 10px;"></div>
-    </div>
-
     <script>
         const CLIENT_STRINGS = {
             url_insert: "http://localhost:8888/api/insert",
