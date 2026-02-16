@@ -21,12 +21,12 @@ const STRINGS = {
 // Database Configuration
 const dbConfig = {
     host: 'localhost',
-    user: 'lab4user',       // User with limited privileges [cite: 34]
+    user: 'lab4user',
     password: 'password123',
     database: 'lab4db'
 };
 
-// AI Gen Hardcoded Data for Insert [cite: 20, 21, 22, 23]
+// Hardcoded Data for Insert
 const PATIENTS_DATA = [
     ['Sara Brown', '1901-01-01'],
     ['John Smith', '1941-01-01'],
@@ -40,7 +40,7 @@ const SQL = {
         patientid INT(11) AUTO_INCREMENT PRIMARY KEY,
         name VARCHAR(100),
         dateOfBirth DATETIME
-    ) ENGINE=InnoDB`,
+    ) ENGINE=InnoDB`, // [cite: 14]
     insert: `INSERT INTO patient (name, dateOfBirth) VALUES ?`
 };
 
@@ -56,9 +56,7 @@ const server = http.createServer((req, res) => {
         return;
     }
 
-    // A. POST Request: Create Table & Insert Data [cite: 19]
     if (req.method === 'POST' && reqUrl.pathname === '/api/insert') {
-        // 1. Check/Create Table first 
         pool.query(SQL.createTable, (err) => {
             if (err) {
                 res.writeHead(500, { ...STRINGS.headers_cors, ...STRINGS.headers_content_type });
@@ -66,17 +64,30 @@ const server = http.createServer((req, res) => {
                 return;
             }
 
-            // 2. Insert Data
             pool.query(SQL.insert, [PATIENTS_DATA], (err, result) => {
                 res.writeHead(200, { ...STRINGS.headers_cors, ...STRINGS.headers_content_type });
                 if (err) {
                     res.end(STRINGS.err_query + err.message);
                 } else {
-                    res.end(`${STRINGS.success_insert}. Rows added: ${  result.affectedRows}`);
+                    res.end(`${STRINGS.success_insert}. Rows added: ${result.affectedRows}`);
                 }
             });
         });
     } 
+    
+    else if (req.method === 'GET' && reqUrl.pathname === '/api/query') {
+        const sqlQuery = reqUrl.query.sql;
+        
+        pool.query(sqlQuery, (err, results) => {
+            res.writeHead(200, { ...STRINGS.headers_cors, ...STRINGS.headers_content_type });
+            if (err) {
+                res.end(STRINGS.err_query + err.message);
+            } else {
+                res.end(JSON.stringify(results));
+            }
+        });
+    } 
+    
     else {
         res.writeHead(404, STRINGS.headers_cors);
         res.end("404 Not Found");

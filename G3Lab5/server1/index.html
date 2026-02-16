@@ -14,7 +14,18 @@
         <p id="insertFeedback" style="color: blue;"></p>
     </div>
 
+    <hr>
+
+    <div>
+        <h3>Part B: Execute SQL Query</h3>
+        <p>Enter a SELECT query (e.g., SELECT * FROM patient)</p>
+        <textarea id="sqlQuery" rows="4" cols="50">SELECT * FROM patient</textarea><br>
+        <button id="submitQueryBtn">Submit Query</button>
+        <div id="queryFeedback" style="margin-top: 10px; border: 1px solid #ccc; padding: 10px;"></div>
+    </div>
+
     <script>
+        // Strings for client side
         const CLIENT_STRINGS = {
             url_insert: "http://localhost:8888/api/insert",
             url_query: "http://localhost:8888/api/query?sql=",
@@ -30,6 +41,21 @@
                 })
                 .catch(err => {
                     document.getElementById('insertFeedback').innerText = CLIENT_STRINGS.err_network + err;
+                });
+        });
+
+        // B. Handle Query Button
+        document.getElementById('submitQueryBtn').addEventListener('click', () => {
+            const query = document.getElementById('sqlQuery').value;
+            const url = CLIENT_STRINGS.url_query + encodeURIComponent(query);
+            
+            fetch(url, { method: 'GET' })
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('queryFeedback').innerText = data;
+                })
+                .catch(err => {
+                    document.getElementById('queryFeedback').innerText = CLIENT_STRINGS.err_network + err;
                 });
         });
     </script>
