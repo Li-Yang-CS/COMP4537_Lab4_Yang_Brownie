@@ -3,7 +3,7 @@ import url from 'url';
 import mysql from 'mysql2';
 import {STRINGS, SQL, PATIENTS_DATA, DB_CONFIG} from './config.js';
 
-const PORT = 8888;
+const PORT = process.env.PORT || 8888;
 const pool = mysql.createPool(DB_CONFIG);
 
 const server = http.createServer((req, res) => {
