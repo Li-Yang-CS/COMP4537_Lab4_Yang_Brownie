@@ -1,8 +1,19 @@
-export const DB_CONFIG = {
-    host: 'localhost',
-    user: 'lab4user',
-    password: 'password123',
-    database: 'lab4db'
+export const WRITER_DB_CONFIG = {
+    host: process.env.DB_HOST,
+    user: "lab4writer",
+    password: process.env.WRITER_DB_PASSWORD,
+    database: process.env.DB_NAME,
+    port: process.env.DB_PORT,
+    ssl: { rejectUnauthorized: false }
+};
+
+export const READER_DB_CONFIG = {
+    host: process.env.DB_HOST,
+    user: "lab4reader",
+    password: process.env.READER_DB_PASSWORD,
+    database: process.env.DB_NAME,
+    port: process.env.DB_PORT,
+    ssl: { rejectUnauthorized: false }
 };
 
 export const STRINGS = {
