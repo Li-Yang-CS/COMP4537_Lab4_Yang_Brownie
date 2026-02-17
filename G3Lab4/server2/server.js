@@ -42,7 +42,6 @@ const server = http.createServer((req, res) => {
         });
         return;
     }
-
     else if (req.method === 'GET' && reqUrl.pathname === '/api/query') {
         const sqlQuery = reqUrl.query.sql;
 

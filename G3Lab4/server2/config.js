@@ -1,4 +1,5 @@
 export const WRITER_DB_CONFIG = {
+<<<<<<< HEAD
     host: process.env.DB_HOST,
     user: "lab4writer",
     password: process.env.WRITER_DB_PASSWORD,
@@ -13,8 +14,26 @@ export const READER_DB_CONFIG = {
     password: process.env.READER_DB_PASSWORD,
     database: process.env.DB_NAME,
     port: process.env.DB_PORT,
+=======
+    host: "lab4db-do-user-32507524-0.f.db.ondigitalocean.com",
+    user: "lab4writer",
+    password: "AVNS_1GPBjuEKeMzkbEbb2UD",
+    database: "defaultdb",
+    port: 25060,
+>>>>>>> 3cc3f2818d9c01cb2b600e59c81fc0bffe0b2636
     ssl: { rejectUnauthorized: false }
 };
+
+
+export const READER_DB_CONFIG = {
+    host: "lab4db-do-user-32507524-0.f.db.ondigitalocean.com",
+    user: "lab4reader",
+    password: "AVNS_r0_uxeVsShxqzPwlo7y",
+    database: "defaultdb",
+    port: 25060,
+    ssl: { rejectUnauthorized: false }
+};
+
 
 export const STRINGS = {
     server_running: "Server is running on port 8888",
